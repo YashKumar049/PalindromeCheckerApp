@@ -1,38 +1,44 @@
-import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Deque;
+import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Input text: ");
+        System.out.print("Enter a word: ");
         String input = scanner.nextLine();
 
-        boolean result = isPalindrome(input);
+        String cleanInput = input.toLowerCase();
 
-        System.out.println("Is it a Palindrome? : " + result);
+        LinkedList<Character> list = new LinkedList<>();
 
-        scanner.close();
-    }
-
-    public static boolean isPalindrome(String input) {
-        if (input == null || input.isEmpty()) return false;
-
-        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-
-        Deque<Character> deque = new LinkedList<>();
-
-        for (char c : clean.toCharArray()) {
-            deque.addLast(c);
+        // add characters to LinkedList
+        for(char c : cleanInput.toCharArray()){
+            list.add(c);
         }
 
-        while (deque.size() > 1) {
-            if (!deque.removeFirst().equals(deque.removeLast())) {
-                return false;
+        boolean isPalindrome = true;
+
+        while(list.size() > 1){
+
+            char first = list.removeFirst();
+            char last = list.removeLast();
+
+            if(first != last){
+                isPalindrome = false;
+                break;
             }
         }
 
-        return true;
+        if(isPalindrome){
+            System.out.println("The string \"" + input + "\" IS a palindrome.");
+        }
+        else{
+            System.out.println("The string \"" + input + "\" is NOT a palindrome.");
+        }
+
+        scanner.close();
     }
 }
