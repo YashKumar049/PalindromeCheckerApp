@@ -1,31 +1,48 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
-    public static void main(String[] args){
-        // UC1: Welcome Message & App Details
+
+    public static void main(String[] args) {
+
+        // UC1: Welcome Message
         System.out.println("========================================");
         System.out.println("Welcome to Palindrome Management System");
         System.out.println("Version : 1.0");
         System.out.println("System initialized Successfully done");
         System.out.println("========================================");
 
-        // UC2: User Input (Replacing the hardcoded "madam")
+        // UC2: User Input
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a word to check: ");
         String input = scanner.nextLine();
 
-        // UC3: Palindrome Check Using String Reverse
-        String reversed = "";
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed += input.charAt(i);
+        String cleanInput = input.toLowerCase();
+
+        // UC5: Stack Based Palindrome Check
+        Stack<Character> stack = new Stack<>();
+
+        // push characters
+        for(char c : cleanInput.toCharArray()){
+            stack.push(c);
         }
-        System.out.println("Reversed string: " + reversed);
-        if (input.equalsIgnoreCase(reversed)) {
+
+        // pop characters to make reverse
+        StringBuilder reversed = new StringBuilder();
+
+        while(!stack.isEmpty()){
+            reversed.append(stack.pop());
+        }
+
+        System.out.println("Stack reversed string: " + reversed);
+
+        // comparison
+        if(cleanInput.equals(reversed.toString())){
             System.out.println("The string \"" + input + "\" IS a palindrome.");
         } else {
             System.out.println("The string \"" + input + "\" is NOT a palindrome.");
         }
-        System.out.println("Program finished.");
+
         scanner.close();
     }
 }
