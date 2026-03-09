@@ -1,44 +1,38 @@
-import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class PalindromeCheckerApp {
-
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a word: ");
+        System.out.print("Input text: ");
         String input = scanner.nextLine();
 
-        String cleanInput = input.toLowerCase();
+        boolean result = isPalindrome(input);
 
-        LinkedList<Character> list = new LinkedList<>();
-
-        // add characters to LinkedList
-        for(char c : cleanInput.toCharArray()){
-            list.add(c);
-        }
-
-        boolean isPalindrome = true;
-
-        while(list.size() > 1){
-
-            char first = list.removeFirst();
-            char last = list.removeLast();
-
-            if(first != last){
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        if(isPalindrome){
-            System.out.println("The string \"" + input + "\" IS a palindrome.");
-        }
-        else{
-            System.out.println("The string \"" + input + "\" is NOT a palindrome.");
-        }
+        System.out.println("Is it a Palindrome? : " + result);
 
         scanner.close();
+    }
+
+    public static boolean isPalindrome(String input) {
+        if (input == null || input.isEmpty()) return false;
+
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+
+        return checkPalindrome(clean, 0, clean.length() - 1);
+
+
+    }
+
+    public static boolean checkPalindrome(String str, int start, int end) {
+        if (start >= end)
+            return true;
+
+        if (str.charAt(start) != str.charAt(end))
+            return false;
+
+        return checkPalindrome(str, start + 1, end - 1);
     }
 }
