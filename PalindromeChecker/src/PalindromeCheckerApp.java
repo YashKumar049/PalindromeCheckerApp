@@ -38,3 +38,4 @@ class PalindromeChecker {
         return check(str, start + 1, end - 1);
     }
 }
+    
